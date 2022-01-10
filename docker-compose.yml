@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  redis-server:
+    image: bitnami/redis:6.2-debian-10
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    volumes:
+      - 'redis_data:/bitnami/redis/data'
+    restart: always
+  visits-api:
+    build:
+      context: .
+      dockerfile: VisitsApi/Dockerfile
+    environment:
+      - RedisConnectionString=redis-server
+    ports:
+      - '5000:80'
+    depends_on:
+      - redis-server
+    restart: always
+volumes:
+  redis_data:

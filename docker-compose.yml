@@ -14,10 +14,21 @@ services:
       dockerfile: VisitsApi/Dockerfile
     environment:
       - RedisConnectionString=redis-server
-    ports:
-      - '5000:80'
     depends_on:
       - redis-server
+    restart: always
+    ports:
+      - '8080:80'
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    environment:
+      - REACT_APP_API_HOST=http://visits-api:8080
+    depends_on:
+      - visits-api
+    ports:
+      - '3000:3000'
     restart: always
 volumes:
   redis_data:

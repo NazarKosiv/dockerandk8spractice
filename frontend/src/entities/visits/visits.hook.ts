@@ -3,7 +3,7 @@ import { getVisits, incrementVisits } from "./visits.service";
 
 export const useVisits = (): [number, boolean, () => Promise<void>] => {
     const [visits, setVisits] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         (async () => {
@@ -22,5 +22,5 @@ export const useVisits = (): [number, boolean, () => Promise<void>] => {
         setIsLoading(false);
     };
 
-    return [visits, isLoading, increment]
+    return [visits, isLoading, increment];
 };

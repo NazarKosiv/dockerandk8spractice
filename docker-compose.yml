@@ -28,7 +28,7 @@ services:
     depends_on:
       - visits-api
     ports:
-      - '3000:3000'
+      - '3000:80'
     restart: always
 volumes:
   redis_data:

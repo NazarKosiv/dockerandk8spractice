@@ -1,5 +1,7 @@
 using VisitsApi.DIExtensions;
 
+const string corsPolicy = "MyPolicy";
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 
@@ -13,11 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "MyPolicy",
-        builder =>
-        {
-            builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-        });
+    options.AddPolicy(name: corsPolicy,
+        builder => { builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(); });
 });
 
 var app = builder.Build();
@@ -29,7 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("MyPolicy");
+app.UseCors(corsPolicy);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -18,7 +18,7 @@ jobs:
       - run: docker build -t nkosiv/k8snginx ./nginx
       - run: docker build -t nkosiv/k8sfrontend ./frontend
 
-      - run: docker push -t nkosiv/k8sfrontend
-      - run: docker push -t nkosiv/k8sapi
-      - run: docker push -t nkosiv/k8snginx
-      - run: docker push -t nkosiv/k8sfrontend
+      - run: docker push nkosiv/k8sfrontend
+      - run: docker push nkosiv/k8sapi
+      - run: docker push nkosiv/k8snginx
+      - run: docker push nkosiv/k8sfrontend

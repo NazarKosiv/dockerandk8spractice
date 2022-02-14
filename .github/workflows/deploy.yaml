@@ -9,16 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
-      - name: Build docker images
+      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
       - run: docker build -t nkosiv/k8sfrontend ./frontend
       - run: docker build -t nkosiv/k8sapi ./VisitsApi
       - run: docker build -t nkosiv/k8snginx ./nginx
       - run: docker build -t nkosiv/k8sfrontend ./frontend
 
-      - name: Push images to dockerhub
-      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push -t nkosiv/k8sfrontend
       - run: docker push -t nkosiv/k8sapi
       - run: docker push -t nkosiv/k8snginx

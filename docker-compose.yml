@@ -2,7 +2,7 @@ version: '3.9'
 services:
   nginx:
     build:
-      context: nginx
+      context: ./nginx
       dockerfile: Dockerfile
     restart: always
     ports:
@@ -20,8 +20,8 @@ services:
     restart: always
   visits-api:
     build:
-      context: .
-      dockerfile: VisitsApi/Dockerfile
+      context: ./VisitsApi
+      dockerfile: Dockerfile
     environment:
       - RedisConnectionString=redis-server
     depends_on:
@@ -29,7 +29,7 @@ services:
     restart: always
   frontend:
     build:
-      context: frontend
+      context: ./frontend
       dockerfile: Dockerfile
     depends_on:
       - visits-api
